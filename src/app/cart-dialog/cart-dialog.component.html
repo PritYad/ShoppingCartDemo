@@ -1,0 +1,36 @@
+<div *ngIf="data.products.length > 0">
+  <table class="cart-dialogue-table margin-top-1">
+    <caption style="text-align: left;margin-bottom: 20px;" class="product-title"> Your items </caption>
+    <tr *ngFor="let product of data.products">
+      <td><img src="../assets/media/{{product.image}}" alt="product-image-not-available" style="width: 120px;
+          height: 100px;" />
+      </td>
+      <td class="cart-dialogue-product-column">
+        <div class="product-title">{{product.title.toUpperCase()}} X {{product.quantity}}</div>
+        <div class="product-subHeading margin-top-half">{{product.brand.toUpperCase()}}</div>
+        <div class="product-subHeading margin-top-half">{{product.price | currency }}</div>
+      </td>
+      <td class="cart-dialogue-product-column">
+        <img src="../assets/media/remove-product.svg" alt="delete" class="cart-dialog-remove-icon pointer-cursor"
+          (click)="removeProduct(product)" />
+      </td>
+      <hr />
+    </tr>
+    <tfoot>
+      <tr>
+        <td colspan="2" class="padding-top-2 product-subHeading"><strong>TOTAL</strong></td>
+        <td class="padding-top-2 product-subHeading" style="text-align:right;">
+          <strong>{{this.totalCartValue | currency}}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="margin-top-2">
+    <button type="button" class="cart-dialog-view-cart-button margin-right-2 product-detail-caption pointer-cursor"
+      (click)="navigateToViewCart()">VIEW CART</button>
+    <button type="button" class="cart-dialog-checkout-button pointer-cursor">CHECKOUT</button>
+  </div>
+</div>
+
+<div *ngIf="data.products.length === 0" class="product-subHeading empty-cart-dialogue"> There are no items in your cart.
+  Please select and add items from the <a (click)="onNoClick()"><strong>view products</strong></a> page.
+</div>

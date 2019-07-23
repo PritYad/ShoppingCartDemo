@@ -1,0 +1,16 @@
+<div class="nav-bar">
+    <img alt="App Logo" src="../assets/media/logo.png" />
+    <span class="cart-menu" style="margin-left:300px; position:absolute;">
+        <span (click)="router.navigate(['/products'])"> HOME </span>
+        <span class="padding-left-1"> SHOP </span>
+        <span class="padding-left-1"> JOURNAL </span>
+        <span class="padding-left-1"> MORE </span>
+    </span>
+    <span class="cart-menu cart-icon" (click)="openCartDialog()">
+        My Cart({{itemAdded}})
+        <img src="../assets/media/sort-down.svg" alt="down-arrow" (click)="openCartDialog()"
+            style="height:10px; width:20px;" />
+    </span>
+</div>
+
+<router-outlet></router-outlet>

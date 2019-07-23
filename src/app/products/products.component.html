@@ -1,0 +1,55 @@
+<div *ngIf="!hideProductList">
+  <div class="sub-logo-container">
+    <img alt="sub-logo" src="../../assets/media/plates-header.jpg" class="sub-logo" style="width:100%; height:350px;" />
+    <div class="sub-logo-center-content">
+      <h3 class="sub-logo-heading">Plates</h3>
+      <hr style="width: 200px;">
+      <div class="sub-logo-sub-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at purus
+        pulvinar, placerat turpis ac,
+        interdum metus. In eget massa sed enim hendrerit auctor a eget.</div>
+    </div>
+  </div>
+  <div *ngFor="let product of productList" id="productList">
+    <div class="container">
+      <img src="../../assets/media/{{product.image}}" alt="product-image-not-available" class="product-image"
+        (mouseover)="product.showButtons = true;" (mouseleave)="product.showButtons = false;" />
+
+      <button type="button" class="product-button margin-bottom-3 btn" (click)="showDetails(product)"
+        [hidden]="!product.showButtons" (mouseover)="product.showButtons = true;">VIEW
+        DETAILS</button>
+      <button type="button" class="product-button btn-1" (click)="addToCart(product)" [hidden]="!product.showButtons"
+        (mouseover)="product.showButtons = true;">ADD TO CART</button>
+
+    </div>
+    <div class="margin-bottom-half product-subHeading margin-top-half">{{ product.brand }}</div>
+    <div class="margin-bottom-half product-title">{{ product.title }}</div>
+    <div class="product-subHeading">{{ product.price | currency }}</div>
+  </div>
+</div>
+<table *ngIf="hideProductList" style="margin:40px;">
+  <caption class="product-detail-caption margin-bottom-3">
+    <div class="product-title">
+      <a routerLink="/products" (click)="this.hideProductList = false">HOME</a> /
+      <a routerLink="/products" (click)="this.hideProductList = false">PLATES</a> /
+      <span style="color:darkgrey">{{selectedProduct.title.toUpperCase()}}</span>
+    </div>
+  </caption>
+  <tr>
+    <td class=""><img src="../../assets/media/{{selectedProduct.image}}" alt="product-image-not-available"
+        class="product-detail-img" />
+    </td>
+    <td class="column-product-detail">
+      <div class="margin-top-1 product-subHeading margin-bottom-2">{{ selectedProduct.brand }}</div>
+      <div class="margin-bottom-half product-title" style="font-size:xx-large;">{{ selectedProduct.title }}</div>
+      <div class="margin-top-1 product-subHeading">{{ selectedProduct.price | currency }}</div>
+      <p class="product-subHeading padding-left-2 padding-right-2">{{ selectedProduct.description }}</p>
+      <hr>
+      <div class="margin-top-1">
+        <span class="margin-right-2"><input type="number" name="quantity" min="1" max="10" class="select-quantity"
+            #quantity (blur)="updateQuantity(quantity.value)" placeholder="0"></span>
+        <span><button type="button" class="product-button" (click)=addToCart(selectedProduct)>ADD TO
+            CART</button></span>
+      </div>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,61 @@
+<mat-card style="background: whitesmoke; padding: 100px;">
+  <mat-card-header>
+    <mat-card-title class="cart-title">Shopping Cart</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="background: white;padding: 80px;">
+    <div *ngIf="cartItems.length > 0">
+      <table style="width:100%" class="cart-table">
+        <tr>
+          <th style="text-align: left" colspan="2">PRODUCT</th>
+          <th style="text-align: left">QUANTITY</th>
+          <th>TOTAL</th>
+          <th style="text-align: right">ACTION</th>
+          <hr />
+        </tr>
+        <tr *ngFor="let product of cartItems">
+          <td style="text-align: left; width:150px;">
+            <img src="../assets/media/{{product.image}}" alt="product-image-not-available" style="width: 120px;
+            height: 100px;" />
+          </td>
+          <td>
+            <div class="product-subHeading margin-top-half">{{product.brand.toUpperCase()}}</div>
+            <div class="product-title">{{product.title.toUpperCase()}}</div>
+          </td>
+          <td> <input type="number" name="quantity" min="1" max="10" class="select-quantity" value={{product.quantity}}
+              #quantity (click)="updateQuantity(quantity.value, product)" placeholder="0"></td>
+          <td class="cart-dialogue-product-column product-subHeading" style="text-align: right">
+            {{product.totalPrice | currency }}</td>
+          <td class="cart-dialogue-product-column" style="text-align: right">
+            <img src="../assets/media/remove-product.svg" alt="delete" class="cart-dialog-remove-icon pointer-cursor"
+              (click)="removeProduct(product)" style="height:20px" />
+          </td>
+          <hr />
+        </tr>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2" class="padding-top-2 product-subHeading">
+              <div>CART OVERVIEW</div>
+              <div class="margin-top-half">SUBTOTAL</div>
+              <div class="margin-top-half">TOTAL</div>
+            </td>
+            <td class="padding-top-2 product-subHeading" style="text-align:right;">
+              <br>
+              <br>
+              <div><strong>{{this.totalCartValue | currency}}</strong></div>
+              <div><strong>{{this.totalCartValue | currency}} CAD</strong></div>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="margin-top-2">
+        <span><a routerLink="/products" class="product-subHeading"><strong>CONTINUE SHOPPING</strong></a></span>
+        <span><button type="button" class="cart-dialog-checkout-button pointer-cursor" style="float: right;">CHECKOUT
+            ({{this.totalCartValue | currency}})</button></span>
+      </div>
+    </div>
+
+    <div *ngIf="cartItems.length === 0" class="product-subHeading empty-cart-dialogue"> There are no items in your cart.
+      Please select and add items from the <a routerLink="/products"><strong>view products</strong></a> page.
+    </div>
+  </mat-card-content>
+</mat-card>
